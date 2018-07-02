@@ -50,13 +50,13 @@ namespace ImageResizeWebApp.Controllers
 
                     return BadRequest("Please provide a name for your image container in the azure blob storage");
 
-Debug.WriteLine("Finished Initial Validation");
+                Console.WriteLine("Finished Initial Validation");
                 var i = 0;
                 foreach (var formFile in files)
                 {
                     if (StorageHelper.IsImage(formFile))
                     {
-                        Debug.WriteLine("File is Image: "+(i++));
+                        Console.WriteLine("File is Image: "+(i++));
                         if (formFile.Length > 0)
                         {
                             using (Stream stream = formFile.OpenReadStream())
