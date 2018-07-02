@@ -51,7 +51,7 @@ namespace ImageResizeWebApp.Controllers
 
                     return BadRequest("Please provide a name for your image container in the azure blob storage");
                 
-                exs+=" Finished Initial Validation: Count="+files.Count+"; ";
+                exs+=" Finished Initial Validation: Count="+files.Count+"; "+files[0]+"; ";
                 var i = 0;
                 foreach (var formFile in files)
                 {
