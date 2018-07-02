@@ -34,6 +34,7 @@ namespace ImageResizeWebApp.Controllers
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
             bool isUploaded = false;
+            string exs = "";
 
             try
             {
@@ -50,13 +51,13 @@ namespace ImageResizeWebApp.Controllers
 
                     return BadRequest("Please provide a name for your image container in the azure blob storage");
                 
-                Trace.WriteLine("Finished Initial Validation");
+                exs+="Finished Initial Validation";
                 var i = 0;
                 foreach (var formFile in files)
                 {
                     if (StorageHelper.IsImage(formFile))
                     {
-                        Trace.WriteLine("File is Image: "+(i++));
+                        exs += ", File is Image: " + (i++);
                         if (formFile.Length > 0)
                         {
                             using (Stream stream = formFile.OpenReadStream())
@@ -89,7 +90,7 @@ namespace ImageResizeWebApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Ex: " +ex.Message);
+                return BadRequest("Ex: " +exs+" "ex.Message);
             }
         }
 
