@@ -66,7 +66,7 @@ namespace ImageResizeWebApp.Controllers
                         //        isUploaded = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
                         //    }
                         //}
-                        isUploaded = true;
+                        return new AcceptedResult();
                     }
                     else
                     {
