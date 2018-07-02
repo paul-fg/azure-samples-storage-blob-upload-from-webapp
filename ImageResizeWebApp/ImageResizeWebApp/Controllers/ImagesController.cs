@@ -91,7 +91,7 @@ namespace ImageResizeWebApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Ex: " +exs+" "+ex.Message);
+                return BadRequest("Ex: " +exs+" "+ex.Message+" "+ex.StackTrace);
             }
         }
 
