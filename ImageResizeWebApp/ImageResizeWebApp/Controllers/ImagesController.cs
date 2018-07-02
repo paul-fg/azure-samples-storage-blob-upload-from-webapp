@@ -89,7 +89,7 @@ namespace ImageResizeWebApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest("Ex: " +ex.Message);
             }
         }
 
@@ -115,7 +115,7 @@ namespace ImageResizeWebApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest("Thumb Ex: "+ex.Message);
             }
 
         }
