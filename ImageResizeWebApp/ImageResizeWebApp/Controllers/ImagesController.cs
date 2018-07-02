@@ -55,7 +55,7 @@ namespace ImageResizeWebApp.Controllers
                 var i = 0;
                 foreach (var formFile in files)
                 {
-                    exs += " Checking File " + i + "; ";
+                    exs += " Checking File " + i + "; "+formFile+"; ";
                     if (StorageHelper.IsImage(formFile))
                     {
                         exs += " File is Image: " + (i++) + "; ";
