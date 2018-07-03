@@ -19,6 +19,8 @@ namespace ImageResizeWebApp
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                   .UseContentRoot(Directory.GetCurrentDirectory())
+                   .UseKestrel()
                    .UseIISIntegration()
                    .UseStartup<Startup>()
                    .Build();
