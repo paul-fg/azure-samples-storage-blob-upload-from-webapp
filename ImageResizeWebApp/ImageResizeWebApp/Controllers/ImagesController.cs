@@ -61,13 +61,13 @@ namespace ImageResizeWebApp.Controllers
                     if (StorageHelper.IsImage(formFile))
                     {
                         exs += " File is Image: " + (i++) + "; ";
-                        if (formFile.Length > 0)
-                        {
-                            using (Stream stream = formFile.OpenReadStream())
-                            {
-                                isUploaded = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
-                            }
-                        }
+                        //if (formFile.Length > 0)
+                        //{
+                        //    using (Stream stream = formFile.OpenReadStream())
+                        //    {
+                        //        isUploaded = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                        //    }
+                        //}a
                         //return new AcceptedResult();
                     }
                     else
