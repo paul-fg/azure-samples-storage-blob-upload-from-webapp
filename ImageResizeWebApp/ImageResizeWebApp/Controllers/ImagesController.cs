@@ -33,8 +33,8 @@ namespace ImageResizeWebApp.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
-            if (true)
-                return new AcceptedResult();
+            //if (true)
+                //return new AcceptedResult();
             bool isUploaded = false;
             string exs = "exs:";
 
