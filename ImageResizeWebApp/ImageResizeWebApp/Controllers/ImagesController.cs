@@ -40,6 +40,12 @@ namespace ImageResizeWebApp.Controllers
         {
             return Ok("ok test2");
         }
+        // POST /api/images/test3
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Test3(ICollection<IFormFile> files)
+        {
+            return Ok("ok test3");
+        }
 
         // POST /api/images/upload
         [HttpPost("[action]")]
