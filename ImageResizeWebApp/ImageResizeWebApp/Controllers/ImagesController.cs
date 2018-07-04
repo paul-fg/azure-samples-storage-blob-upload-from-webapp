@@ -102,7 +102,7 @@ namespace ImageResizeWebApp.Controllers
 
                     else
 
-                        return new AcceptedResult();
+                        return Ok("image uploaded");
                 }
                 else
 
