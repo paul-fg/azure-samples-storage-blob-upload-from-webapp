@@ -34,6 +34,12 @@ namespace ImageResizeWebApp.Controllers
         {
             return Ok();
         }
+        // POST /api/images/test2
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Test2()
+        {
+            return Ok();
+        }
 
         // POST /api/images/upload
         [HttpPost("[action]")]
