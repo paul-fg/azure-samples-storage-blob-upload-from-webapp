@@ -32,13 +32,13 @@ namespace ImageResizeWebApp.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Test(IFormFile files)
         {
-            return Ok();
+            return Ok("ok test");
         }
         // POST /api/images/test2
         [HttpGet("[action]")]
         public async Task<IActionResult> Test2()
         {
-            return Ok();
+            return Ok("ok test2");
         }
 
         // POST /api/images/upload
