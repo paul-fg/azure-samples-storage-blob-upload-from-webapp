@@ -32,7 +32,7 @@ namespace ImageResizeWebApp.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Test(ICollection<IFormFile> files)
         {
-            return new AcceptedResult();
+            return BadRequest("this is bad");
         }
 
         // POST /api/images/upload
