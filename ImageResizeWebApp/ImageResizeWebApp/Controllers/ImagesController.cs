@@ -28,6 +28,12 @@ namespace ImageResizeWebApp.Controllers
         {
             storageConfig = config.Value;
         }
+        // POST /api/images/test
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Test(ICollection<IFormFile> files)
+        {
+            return new AcceptedResult();
+        }
 
         // POST /api/images/upload
         [HttpPost("[action]")]
