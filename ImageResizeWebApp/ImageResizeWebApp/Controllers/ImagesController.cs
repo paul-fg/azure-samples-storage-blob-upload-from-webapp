@@ -51,8 +51,6 @@ namespace ImageResizeWebApp.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
-            //if (true)
-                //return new AcceptedResult();
             bool isUploaded = false;
             string exs = "exs:";
 
@@ -86,7 +84,6 @@ namespace ImageResizeWebApp.Controllers
                                 isUploaded = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
                             }
                         }
-                        //return new AcceptedResult();
                     }
                     else
                     {
