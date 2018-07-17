@@ -15,6 +15,11 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using ImageResizeWebApp.Helpers;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace ImageResizeWebApp.Controllers
 {
@@ -23,10 +28,12 @@ namespace ImageResizeWebApp.Controllers
     {
         // make sure that appsettings.json is filled with the necessary details of the azure storage
         private readonly AzureStorageConfig storageConfig = null;
+        private IConfiguration _config;
 
-        public ImagesController(IOptions<AzureStorageConfig> config)
+        public ImagesController(IConfiguration config)
         {
-            storageConfig = config.Value;
+            _config = config;
+            storageConfig = (AzureStorageConfig)config.GetSection("AzureStorageConfig");
         }
         // POST /api/images/test
         [HttpPost("[action]")]
@@ -47,8 +54,60 @@ namespace ImageResizeWebApp.Controllers
             return Ok("ok test3");
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult CreateToken([FromBody]LoginModel login)
+        {
+            IActionResult response = Unauthorized();
+            var user = Authenticate(login);
+
+            if (user != null)
+            {
+                var tokenString = BuildToken(user);
+                response = Ok(new { token = tokenString });
+            }
+
+            return response;
+        }
+        private string BuildToken(UserModel user)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+                                             _config["Jwt:Issuer"],
+              expires: DateTime.Now.AddMinutes(30),
+              signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private UserModel Authenticate(LoginModel login)
+        {
+            UserModel user = null;
+
+            if (login.Username == "mario" && login.Password == "secret")
+            {
+                user = new UserModel { Name = "Mario Rossi", Email = "mario.rossi@domain.com" };
+            }
+            return user;
+        }
+        public class LoginModel
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
+        }
+
+        private class UserModel
+        {
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public DateTime Birthdate { get; set; }
+        }
+
         // POST /api/images/upload
-        [HttpPost("[action]")]
+        //[HttpPost("[action]")]
+        [HttpPost("[action]"), Authorize]
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
             bool isUploaded = false;
