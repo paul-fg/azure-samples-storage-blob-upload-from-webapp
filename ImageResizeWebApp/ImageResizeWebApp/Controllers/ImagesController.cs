@@ -33,7 +33,7 @@ namespace ImageResizeWebApp.Controllers
         public ImagesController(IConfiguration config)
         {
             _config = config;
-            storageConfig = (AzureStorageConfig)config.GetSection("AzureStorageConfig");
+            storageConfig = (AzureStorageConfig)config.GetSection("AzureStorageConfig").Get<AzureStorageConfig>();
         }
         // POST /api/images/test
         [HttpPost("[action]")]
