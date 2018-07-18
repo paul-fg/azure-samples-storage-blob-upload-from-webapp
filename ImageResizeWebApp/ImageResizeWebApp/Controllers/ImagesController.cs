@@ -42,8 +42,14 @@ namespace ImageResizeWebApp.Controllers
             return Ok("ok test");
         }
         // GET /api/images/test2
-        [HttpGet("[action]"), Authorize]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Test2()
+        {
+            return Ok("ok test2");
+        }
+        // GET /api/images/testauth
+        [HttpGet("[action]"), Authorize]
+        public async Task<IActionResult> TestAuth()
         {
             return Ok("ok test2");
         }
