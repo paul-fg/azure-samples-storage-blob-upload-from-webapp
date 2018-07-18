@@ -20,13 +20,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace ImageResizeWebApp.Controllers
 {
     [Route("api/[controller]")]
     public class ImagesController : Controller
     {
-        // make sure that appsettings.json is filled with the necessary details of the azure storage
+        // appsettings.json contains the necessary details for azure storage
         private readonly AzureStorageConfig storageConfig = null;
         private IConfiguration _config;
 
@@ -37,28 +39,23 @@ namespace ImageResizeWebApp.Controllers
         }
         // POST /api/images/test
         [HttpPost("[action]")]
-        public async Task<IActionResult> Test(IFormFile files)
-        {
-            return Ok("ok test");
-        }
+        public IActionResult Test(IFormFile files) => Ok("ok test");
+
         // GET /api/images/test2
         [HttpGet("[action]")]
-        public async Task<IActionResult> Test2()
-        {
-            return Ok("ok test2");
-        }
+        public IActionResult Test2() => Ok("ok test2");
+
         // GET /api/images/testauth
         [HttpGet("[action]"), Authorize]
-        public async Task<IActionResult> TestAuth()
+        public IActionResult TestAuth()
         {
-            return Ok("ok testauth");
+            this.User.Claims.ToList().ForEach(item => Console.WriteLine(item));
+            return Ok("ok testauth: "+this.User.Identity.Name);
         }
+
         // POST /api/images/test3
         [HttpPost("[action]")]
-        public async Task<IActionResult> Test3(ICollection<IFormFile> files)
-        {
-            return Ok("ok test3");
-        }
+        public IActionResult Test3(ICollection<IFormFile> files) => Ok("ok test3");
 
         [AllowAnonymous]
         [HttpPost("[action]")]
@@ -77,13 +74,18 @@ namespace ImageResizeWebApp.Controllers
         }
         private string BuildToken(UserModel user)
         {
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.Email)
+            };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
                                              _config["Jwt:Issuer"],
-              expires: DateTime.Now.AddMinutes(30),
-              signingCredentials: creds);
+                                             claims: claims,
+                                             expires: DateTime.Now.AddMinutes(30),
+                                             signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
