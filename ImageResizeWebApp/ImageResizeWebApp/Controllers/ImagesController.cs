@@ -55,7 +55,7 @@ namespace ImageResizeWebApp.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("[action]")]
         public IActionResult CreateToken([FromBody]LoginModel login)
         {
             IActionResult response = Unauthorized();
