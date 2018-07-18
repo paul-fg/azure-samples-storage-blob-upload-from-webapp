@@ -58,6 +58,7 @@ namespace ImageResizeWebApp
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
