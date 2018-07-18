@@ -51,7 +51,7 @@ namespace ImageResizeWebApp.Controllers
         [HttpGet("[action]"), Authorize]
         public async Task<IActionResult> TestAuth()
         {
-            return Ok("ok test2");
+            return Ok("ok testauth");
         }
         // POST /api/images/test3
         [HttpPost("[action]")]
@@ -112,8 +112,8 @@ namespace ImageResizeWebApp.Controllers
         }
 
         // POST /api/images/upload
-        [HttpPost("[action]")]
         //[HttpPost("[action]"), Authorize]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
             bool isUploaded = false;
