@@ -41,6 +41,7 @@ namespace ImageResizeWebApp
                         ValidAudience = Configuration["Jwt:Issuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
+                    //options.MetadataAddress = ;
                 });
             services.AddMvc();
         }
