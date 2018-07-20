@@ -35,4 +35,17 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Data\128827-job.json" />
+    <Content Remove="Data\128827-job-templates.json" />
+    <Content Remove="Data\closeoutsread-job-list.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\128827-job.json" />
+    <EmbeddedResource Include="Data\128827-job-templates.json" />
+    <EmbeddedResource Include="Data\closeoutsread-job-list.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
 </Project>
